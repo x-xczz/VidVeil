@@ -1,31 +1,31 @@
 # VidVeil
 
-**A shadow-layer video controller for the open web.**
+**为开放网络打造的 Shadow DOM 视频控制层。**
 
-VidVeil is a Manifest V3 browser extension that adds a consistent, lightweight control layer to eligible HTML5 video players. It keeps the original `<video>` element and media stream in place, isolates its interface in a Shadow DOM, and lets you restore the site's player without reloading the page.
+[简体中文](README.md) | [English](README.en.md)
 
-> Chinese documentation is the primary documentation for this project. / 本项目的主要文档语言为中文。
+VidVeil 是一款 Manifest V3 浏览器扩展，为符合条件的 HTML5 视频播放器提供统一、轻量的控制界面。它保留原有的 `<video>` 元素和媒体流，将界面隔离在 Shadow DOM 中，并支持无需刷新页面即可恢复网站原生播放器。
 
-## Features
+## 功能特性
 
-- **Unified controls:** playback, timeline scrubbing, buffered progress, volume, playback speed, fullscreen and Picture-in-Picture.
-- **Shadow DOM isolation:** VidVeil's interface and styles stay separate from the page's CSS.
-- **Native-player shielding:** suppresses a detected native control layer while VidVeil is active; restoring the site player restores its original state.
-- **Per-site rules:** force-enable and block individual domains, with built-in exemptions for mature players such as YouTube, Bilibili, Netflix, iQIYI, Youku, Douyin, TikTok, Twitch and Disney+.
-- **Instant switching:** enable or restore the player from the overlay or extension popup without reloading the page. Cross-origin frames are handled in the context of their top-level site.
-- **Video gestures:** click to play/pause, double-click for fullscreen, horizontal drag to seek, long press for temporary 3x speed, and wheel-to-volume on desktop.
-- **Frame previews:** generate JPEG previews from seekable, CORS-compatible media; use supported WebVTT thumbnail tracks when available. Unsupported streams fall back to a timestamp and an explanation.
-- **Privacy-minded:** settings are stored in the browser. Thumbnail extraction uses the media source already presented by the site; VidVeil does not provide a media proxy or upload extracted frames to a VidVeil server.
+- **统一控制**：播放、进度拖动、缓冲进度、音量、倍速、全屏和画中画。
+- **Shadow DOM 样式隔离**：VidVeil 的界面与样式不受网页 CSS 干扰。
+- **原生播放器 UI 屏蔽**：VidVeil 启用时尽力隐藏检测到的原生控制层；恢复原版播放器时还原其状态。
+- **按站点配置规则**：可强制启用或屏蔽指定域名；默认内置 YouTube、Bilibili、Netflix、爱奇艺、优酷、抖音、TikTok、Twitch 和 Disney+ 等站点的豁免规则。
+- **即时切换**：可从控制层或扩展弹窗启用 VidVeil 或恢复原版播放器，无需刷新页面。跨域 iframe 会按照其顶层站点规则处理。
+- **视频手势**：单击播放/暂停、双击全屏、横向拖动跳转、长按临时 3 倍速，以及桌面端滚轮调节音量。
+- **帧预览**：尝试从可跳转且允许跨域读取的媒体源生成 JPEG 预览；支持时也会读取 WebVTT 缩略图轨道。受限流媒体会显示时间戳和说明作为回退。
+- **注重隐私**：设置保存在浏览器本地。缩略图从网站提供的媒体源提取；VidVeil 不提供媒体代理，也不会将提取帧上传到 VidVeil 服务器。
 
-## Requirements
+## 环境要求
 
-- Node.js 20 or newer and npm.
-- A Chromium-based browser with Manifest V3 extension support, such as current Chrome or Microsoft Edge.
-- Internet access to install npm dependencies. Video playback and thumbnail previews remain subject to the media host's availability and browser CORS rules.
+- Node.js 20 或更高版本，以及 npm。
+- 支持 Manifest V3 的 Chromium 内核浏览器，例如当前版本的 Chrome 或 Microsoft Edge。
+- 安装 npm 依赖需要网络。视频播放和帧预览还取决于媒体主机是否可用及浏览器的 CORS 限制。
 
-Safari and iOS browser extension packages are not currently provided. Android browser support depends on whether that browser supports desktop-style extensions and Manifest V3.
+目前未提供 Safari 和 iOS 浏览器扩展包。Android 浏览器是否可用，取决于其是否支持桌面风格扩展和 Manifest V3。
 
-## Build from source
+## 从源码构建
 
 ```bash
 npm install
@@ -34,113 +34,113 @@ npm run compile
 npm run build
 ```
 
-The unpacked Chrome-compatible extension is written to `.output/chrome-mv3`.
+Chrome 兼容的未打包扩展输出到 `.output/chrome-mv3`。
 
-To create a distributable archive:
+创建分发压缩包：
 
 ```bash
 npm run zip
 ```
 
-For a local development build with extension reload support:
+启动支持扩展自动重载的本地开发构建：
 
 ```bash
 npm run dev
 ```
 
-## Install the unpacked extension
+## 加载未打包扩展
 
-1. Run the build commands above.
-2. Open `chrome://extensions` in Chrome or `edge://extensions` in Edge.
-3. Enable **Developer mode**.
-4. Choose **Load unpacked** and select the project's `.output/chrome-mv3` directory.
-5. Open or reload a video page. Use the VidVeil popup to inspect the current domain and change its site rule.
+1. 执行上面的构建命令。
+2. 在 Chrome 打开 `chrome://extensions`，或在 Edge 打开 `edge://extensions`。
+3. 开启**开发者模式**。
+4. 点击**加载已解压的扩展程序**，选择项目的 `.output/chrome-mv3` 目录。
+5. 打开或刷新视频网页，并使用 VidVeil 弹窗查看当前域名或调整站点规则。
 
-Some pages opened before installing or reloading the extension may need one page refresh before their content scripts are available.
+安装或重新加载扩展之前已经打开的网页，可能需要刷新一次才能运行内容脚本。
 
-## Local test playground
+## 本地测试页
 
-The repository includes `test-playground.html`, with standard-video, small-video, decorative-video and dynamically inserted-video scenarios.
+仓库包含 `test-playground.html`，提供标准视频、小尺寸视频、装饰性背景视频和动态插入视频等测试场景。
 
-Start a local HTTP server from the project root:
+在项目根目录启动本地 HTTP 服务：
 
 ```bash
 python -m http.server 4173 --bind 127.0.0.1
 ```
 
-Then visit `http://localhost:4173/test-playground.html` and enable `localhost` in the VidVeil popup. The test video is hosted by Video.js, so the playground needs an internet connection. `localhost` and `127.0.0.1` are separate domain rules.
+然后访问 `http://localhost:4173/test-playground.html`，并在 VidVeil 弹窗中启用 `localhost`。测试视频由 Video.js 托管，因此测试页需要联网。`localhost` 和 `127.0.0.1` 会被视为不同的域名规则。
 
-## Site-rule priority
+## 站点规则优先级
 
-The rule engine evaluates a hostname in this order:
+规则引擎按以下顺序评估主机名：
 
-1. **User whitelist:** force-enable the domain, including a domain covered by a built-in exemption.
-2. **User blocklist:** leave the site's player in control.
-3. **Built-in exemptions:** applied when the built-in ignore setting is enabled.
-4. **Default:** allow eligible videos to be considered for takeover.
+1. **用户白名单**：强制启用该域名，即使它命中内置豁免规则。
+2. **用户屏蔽列表**：由网站播放器继续控制。
+3. **内置豁免**：启用内置忽略设置时生效。
+4. **默认规则**：允许 VidVeil 评估是否接管符合条件的视频。
 
-Wildcard rules such as `*.example.com` match both `example.com` and its subdomains. Video candidates are skipped when they are too small, short, live (`duration === Infinity`), or appear to be muted looping decorative media.
+`*.example.com` 这样的通配规则同时匹配 `example.com` 及其子域名。尺寸过小、时长过短、直播（`duration === Infinity`）或疑似静音循环装饰视频的候选项会被跳过。
 
-## Controls
+## 操作方式
 
-| Action | Result |
+| 操作 | 效果 |
 | --- | --- |
-| Single click on the video | Play or pause |
-| Double-click on the video | Toggle fullscreen |
-| Drag horizontally on the video | Seek; approximately 1 second per 5 pixels |
-| Press and hold on the video | Temporarily use 3x playback speed |
-| Mouse wheel over the video | Adjust volume |
-| `Space` | Play or pause |
-| `ArrowRight` / `ArrowLeft` | Hold right for temporary 3x speed; tap right to seek +5 seconds; left seeks -5 seconds |
-| `ArrowUp` / `ArrowDown` | Adjust volume |
-| `F` | Toggle fullscreen |
+| 单击视频 | 播放或暂停 |
+| 双击视频 | 切换全屏 |
+| 在视频上水平拖动 | 跳转；约每 5 像素跳转 1 秒 |
+| 在视频上按住 | 临时使用 3 倍速 |
+| 在视频上滚动鼠标滚轮 | 调节音量 |
+| `Space` | 播放或暂停 |
+| `ArrowRight` / `ArrowLeft` | 按住右键临时 3 倍速；点击右键快进 5 秒；左键后退 5 秒 |
+| `ArrowUp` / `ArrowDown` | 调节音量 |
+| `F` | 切换全屏 |
 
-Use **Restore Native Player** to return control to the page. When VidVeil is active on that site, the compact **Enable VidVeil** launcher can re-enable it without a page reload.
+点击**恢复原版播放器**即可将控制权交还给网页。当 VidVeil 在该站点处于启用状态时，也可以通过紧凑的**启用 VidVeil**启动按钮重新启用，无需刷新页面。
 
-## Permissions
+## 权限说明
 
-The extension requests the following Manifest V3 permissions:
+扩展申请以下 Manifest V3 权限：
 
-- `storage` — save site rules locally in the browser.
-- `activeTab` and `scripting` — support interaction with the active tab and extension tooling.
-- `<all_urls>` host access — inspect eligible video elements in web pages, including embedded player frames, and place the overlay above the original video.
+- `storage`：在浏览器本地保存站点规则。
+- `activeTab` 和 `scripting`：支持与当前标签页及扩展工具交互。
+- `<all_urls>` 主机访问权限：检查网页中的符合条件的视频元素，包括嵌入式播放器 iframe，并将控制层显示在原视频上方。
 
-The broad host access is needed for a general-purpose video controller. Site rules and built-in exemptions determine where VidVeil actually starts scanning and mounting controls.
+通用视频控制器需要较广泛的主机访问权限。站点规则和内置豁免决定 VidVeil 实际在哪些位置扫描并挂载控制层。
 
-## Limitations
+## 已知限制
 
-- The original media and playback engine are preserved, but the site can still enforce its own keyboard shortcuts, overlays, DRM, or player behavior. Native UI shielding is best-effort across different player implementations.
-- Canvas frame extraction requires a seekable source and permission from the media host's CORS policy. `blob:`/MSE or DRM streams may not expose a reusable source; in that case VidVeil shows the timestamp or an unsupported message. A preview is aligned to a 2-second bucket, not guaranteed to be an exact frame.
-- A website may change its iframe layout, player DOM, or media source at any time. Compatibility can vary by site and browser.
-- Touch gestures, native fullscreen behavior, and Picture-in-Picture availability vary across mobile browsers. A dedicated mobile extension package and full real-device certification are not currently provided.
+- VidVeil 保留原媒体和播放引擎，但网站仍可能执行自己的键盘快捷键、弹层、DRM 或播放器逻辑。对不同播放器的原生 UI 屏蔽属于尽力而为。
+- Canvas 帧提取需要可跳转的媒体源，且媒体主机的 CORS 策略允许读取。`blob:`/MSE 或 DRM 流可能无法提供可复用源，此时 VidVeil 会显示时间戳或不支持说明。预览按 2 秒时间段对齐，不保证精确到目标帧。
+- 网站可能随时更改 iframe 布局、播放器 DOM 或媒体源，因此不同网站和浏览器的兼容性会有差异。
+- 触控手势、原生全屏行为和画中画支持因移动浏览器而异。目前未提供专用移动端扩展包，也未完成全面的真实设备认证。
 
-## Project layout
+## 项目结构
 
 ```text
 src/
-├── components/       # Shadow DOM Vue player interface
-├── core/             # Player lifecycle, native UI shield and page launcher
-├── entrypoints/      # WXT background, content script and popup
-├── presets/          # Built-in exempt domains
-├── types/            # Shared TypeScript types
-└── utils/            # Storage, rule engine and frame extraction
+├── components/       # Shadow DOM Vue 播放器界面
+├── core/             # 播放器生命周期、原生 UI 屏蔽和页面启动器
+├── entrypoints/      # WXT 后台脚本、内容脚本和弹窗
+├── presets/          # 内置豁免域名
+├── types/            # 共享 TypeScript 类型
+└── utils/            # 存储、规则引擎和帧提取
 ```
 
-## Configuration migration
+## 配置迁移
 
-When upgrading from the earlier UniPlayer build, VidVeil reads the existing `uniplayer:config` setting and copies it to `vidveil:config`. Existing whitelist and blocklist preferences are retained.
+从早期 UniPlayer 版本升级时，VidVeil 会读取已有的 `uniplayer:config` 设置，并将其复制到 `vidveil:config`。现有白名单和屏蔽列表偏好会被保留。
 
-## Contributing
+## 参与贡献
 
-Issues and pull requests are welcome. Before submitting a change, run:
+欢迎提交 Issue 和 Pull Request。提交更改前请运行：
 
 ```bash
 npm run compile
 npm run build
 ```
 
-For player, frame, or iframe changes, also verify the relevant scenarios in `test-playground.html` and, where applicable, test the target site in a real browser.
+如果更改涉及播放器、帧预览或 iframe，请使用 `test-playground.html` 验证相关场景，并在适用时通过真实浏览器测试目标网站。
 
-## License
+## 许可证
 
-No license has been selected for this repository yet. Add a `LICENSE` file before publishing if you want to grant standard open-source reuse rights.
+本仓库尚未选择许可证。如果希望授予标准的开源复用权利，请在发布前添加 `LICENSE` 文件。
