@@ -6,6 +6,10 @@
 
 VidVeil is a Manifest V3 browser extension that adds a consistent, lightweight control layer to eligible HTML5 video players. It keeps the original `<video>` element and media stream in place, isolates its interface in a Shadow DOM, and lets you restore the site's player without reloading the page.
 
+### What VidVeil solves
+
+Video players look and behave differently from site to site. VidVeil gives eligible videos a familiar set of shared controls, so you can play, seek, adjust volume, or go fullscreen in a consistent way. It does not replace or download the video.
+
 ## Features
 
 - **Unified controls:** playback, timeline scrubbing, buffered progress, volume, playback speed, fullscreen and Picture-in-Picture.
