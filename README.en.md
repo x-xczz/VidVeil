@@ -143,4 +143,4 @@ For player, frame, or iframe changes, also verify the relevant scenarios in `tes
 
 ## License
 
-No license has been selected for this repository yet. Add a `LICENSE` file before publishing if you want to grant standard open-source reuse rights.
+This project is licensed under the [MIT License](LICENSE).
