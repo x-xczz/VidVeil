@@ -1,0 +1,24 @@
+{
+  "name": "vidveil",
+  "description": "Unified HTML5 video controls with per-site exemptions.",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "compile": "vue-tsc --noEmit",
+    "typecheck": "vue-tsc --noEmit",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@wxt-dev/module-vue": "latest",
+    "typescript": "^5.9.0",
+    "vue-tsc": "^3.0.0",
+    "wxt": "latest"
+  }
+}

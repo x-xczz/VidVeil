@@ -1,0 +1,6 @@
+node_modules/
+.npm-cache/
+.wxt/
+.output/
+SPEC.md
+test-playground.html
